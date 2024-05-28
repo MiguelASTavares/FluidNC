@@ -36,6 +36,7 @@
 #include "source/TMC5160_bitfields.h"
 #include "source/TMC2208_bitfields.h"
 #include "source/TMC2209_bitfields.h"
+#include "source/TMC2300_bitfields.h"
 #include "source/TMC2660_bitfields.h"
 
 #define INIT_REGISTER(REG) REG##_t REG##_register = REG##_t
@@ -1073,6 +1074,65 @@ class TMC2209Stepper : public TMC2208Stepper {
 		TMC2209_n::SGTHRS_t SGTHRS_register{.sr=0};
 		TMC2209_n::COOLCONF_t COOLCONF_register{{.sr=0}};
 };
+
+// ------------------------ Added for TMC2300 support ----------------------------------------
+
+class TMC2300Stepper : public TMC2208Stepper {
+public:
+    TMC2300Stepper(Stream* SerialPort, float RS, uint8_t addr) : TMC2208Stepper(SerialPort, RS, addr) {}
+
+#if SW_CAPABLE_PLATFORM
+    TMC2300Stepper(uint16_t SW_RX_pin, uint16_t SW_TX_pin, float RS, uint8_t addr) : TMC2208Stepper(SW_RX_pin, SW_TX_pin, RS, addr) {}
+#else
+    TMC2300Stepper(uint16_t, uint16_t, float, uint8_t) = delete;  // Your platform does not currently support Software Serial
+#endif
+    void push();
+
+    // R: IOIN
+    uint32_t IOIN();
+    bool     enn();
+    bool     nstdby();
+    bool     ms1();
+    bool     ms2();
+    bool     diag();
+    bool     pdn_uart();
+    bool     step();
+    bool     spread_en();
+    bool     dir();
+    uint8_t  version();
+
+    // W: TCOOLTHRS
+    uint32_t TCOOLTHRS();
+    void     TCOOLTHRS(uint32_t input);
+
+    // W: SGTHRS
+    void    SGTHRS(uint8_t B);
+    uint8_t SGTHRS();
+
+    // R: SG_RESULT
+    uint16_t SG_RESULT();
+
+    // W: COOLCONF
+    void     COOLCONF(uint16_t B);
+    uint16_t COOLCONF();
+    void     semin(uint8_t B);
+    void     seup(uint8_t B);
+    void     semax(uint8_t B);
+    void     sedn(uint8_t B);
+    void     seimin(bool B);
+    uint8_t  semin();
+    uint8_t  seup();
+    uint8_t  semax();
+    uint8_t  sedn();
+    bool     seimin();
+
+protected:
+    INIT_REGISTER(TCOOLTHRS) { .sr = 0 };
+    TMC2300_n::SGTHRS_t   SGTHRS_register { .sr = 0 };
+    TMC2300_n::COOLCONF_t COOLCONF_register { { .sr = 0 } };
+};
+
+// ------------------------ Added for TMC2300 support ----------------------------------------
 
 class TMC2224Stepper : public TMC2208Stepper {
 	public:
