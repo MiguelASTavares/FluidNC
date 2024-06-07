@@ -1124,19 +1124,52 @@ public:
     TMC2300Stepper(uint16_t, uint16_t, float, uint8_t) = delete;  // Your platform does not currently support Software Serial
 #endif
     void push();
+    void defaults();
 
-    //uint32_t GCONF();
-    //void     GCONF(uint32_t value);
-    //void     extcap(bool B);
-    //void     shaft(bool B);
-    //void     diag_index(bool B);
-    //void     diag_step(bool B);
-    //void     multistep_filt(bool B);
-    //bool     extcap();
-    //bool     shaft();
-    //bool     diag_index();
-    //bool     diag_step();
-    //bool     multistep_filt();
+    uint32_t GCONF();
+    void     GCONF(uint32_t value);
+    void     extcap(bool B);
+    void     shaft(bool B);
+    void     diag_index(bool B);
+    void     diag_step(bool B);
+    void     multistep_filt(bool B);
+    bool     extcap();
+    bool     shaft();
+    bool     diag_index();
+    bool     diag_step();
+    bool     multistep_filt();
+
+    uint32_t CHOPCONF();
+    void     CHOPCONF(uint32_t);
+    void     enable_drv(bool B);
+    void     tbl(uint8_t B);
+    void     mres(uint8_t B);
+    void     intpol(bool B);
+    void     dedge(bool B);
+    void     diss2g(bool B);
+    void     diss2vs(bool B);
+    uint8_t tbl();
+    uint8_t mres();
+    bool    intpol();
+    bool    dedge();
+    bool    diss2g();
+    bool    diss2vs();
+    bool    enable_drv();
+
+    uint32_t DRV_STATUS();
+    bool     otpw();
+    bool     ot();
+    bool     s2ga();
+    bool     s2gb();
+    bool     s2vsa();
+    bool     s2vsb();
+    bool     ola();
+    bool     olb();
+    bool     t120();
+    bool     t150();
+    uint16_t cs_actual();
+    bool     stst();
+
     // R: IOIN
     uint32_t IOIN();
     bool     enn();
@@ -1177,11 +1210,13 @@ public:
     uint8_t  sedn();
     bool     seimin();
 
+    
 protected:
-    //static constexpr uint8_t TMC2300_SYNC = 0x05, TMC2300_SLAVE_ADDR = 0x00;
+    INIT2300_REGISTER(GCONF) { { .sr = 0 } };
     INIT_REGISTER(TCOOLTHRS) { .sr = 0 };
     TMC2300_n::SGTHRS_t   SGTHRS_register { .sr = 0 };
     TMC2300_n::COOLCONF_t COOLCONF_register { { .sr = 0 } };
+    TMC2300_n::CHOPCONF_t CHOPCONF_register { { .sr = 0 } };
 };
 
 // ------------------------ Added for TMC2300 support ----------------------------------------

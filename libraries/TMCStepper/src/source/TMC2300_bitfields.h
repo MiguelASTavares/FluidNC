@@ -3,6 +3,23 @@
 
 namespace TMC2300_n {
 
+    struct CHOPCONF_t {
+        constexpr static uint8_t address = 0x6C;
+        union {
+            uint32_t sr;
+            struct {
+                bool enable_drv : 1;  // 0
+                uint16_t : 14;
+                uint8_t tbl : 2,  // 15
+                    : 7,
+                    mres : 4;     // 24
+                bool intpol : 1,  // 28
+                    dedge : 1,    // 29
+                    diss2g : 1,   // 30
+                    diss2vs : 1;  // 31
+            };
+        };
+    };
     struct GCONF_t {
         constexpr static uint8_t address = 0x00;
         union {
@@ -42,17 +59,17 @@ namespace TMC2300_n {
         };
     };
 
-    struct GSTAT_t {
-        constexpr static uint8_t address = 0x01;
-        union {
-            uint8_t sr;
-            struct {
-                bool reset : 1,   // 0
-                    drv_err : 1,  // 1
-                    u3v5 : 1;     // 2
-            };
-        };
-    };
+    //struct GSTAT_t {
+    //    constexpr static uint8_t address = 0x01;
+    //    union {
+    //        uint8_t sr;
+    //        struct {
+    //            bool reset : 1,   // 0
+    //                drv_err : 1,  // 1
+    //                u3v5 : 1;     // 2
+    //        };
+    //    };
+    //};
 
     struct SGTHRS_t {
         constexpr static uint8_t address = 0x40;
@@ -71,24 +88,6 @@ namespace TMC2300_n {
             struct {
                 uint8_t semin : 4, : 1, seup : 2, : 1, semax : 4, : 1, sedn : 2;
                 bool    seimin : 1;
-            };
-        };
-    };
-
-    struct CHOPCONF_t {
-        constexpr static uint8_t address = 0x6C;
-        union {
-            uint32_t sr;
-            struct {
-                bool enable_drv : 1;  // 0
-                uint16_t : 14;
-                uint8_t tbl : 2,  // 15
-                    : 7,
-                    mres : 4;     // 24
-                bool intpol : 1,  // 28
-                    dedge : 1,    // 29
-                    diss2g : 1,   // 30
-                    diss2vs : 1;  // 31
             };
         };
     };

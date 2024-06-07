@@ -106,3 +106,29 @@ uint8_t TMC2660Stepper::hdec() 	{ GET_REG_2660(hdec);	}
 bool TMC2660Stepper::rndtf() { GET_REG_2660(rndtf);	}
 bool TMC2660Stepper::chm() 	{ GET_REG_2660(chm);	}
 uint8_t TMC2660Stepper::tbl() { GET_REG_2660(tbl);	}
+
+
+
+void TMC2300Stepper::CHOPCONF(uint32_t input) {
+	CHOPCONF_register.sr = input;
+	write(CHOPCONF_register.address, CHOPCONF_register.sr);
+}
+uint32_t TMC2300Stepper::CHOPCONF() {
+	return read(CHOPCONF_register.address);
+}
+
+void TMC2300Stepper::enable_drv	( bool  B )	{ SET_REG(enable_drv); 	}
+void TMC2300Stepper::tbl	( uint8_t  B )	{ SET_REG(tbl); 	}
+void TMC2300Stepper::mres	( uint8_t  B )	{ SET_REG(mres); 	}
+void TMC2300Stepper::intpol	( bool     B )	{ SET_REG(intpol); 	}
+void TMC2300Stepper::dedge	( bool     B )	{ SET_REG(dedge); 	}
+void TMC2300Stepper::diss2g	( bool     B )	{ SET_REG(diss2g); 	}
+void TMC2300Stepper::diss2vs( bool     B )	{ SET_REG(diss2vs); }
+
+bool TMC2300Stepper::enable_drv()	{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.enable_drv; 	}
+uint8_t TMC2300Stepper::tbl()		{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.tbl;	 	}
+uint8_t TMC2300Stepper::mres()		{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.mres; 	}
+bool 	TMC2300Stepper::intpol()	{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.intpol; 	}
+bool 	TMC2300Stepper::dedge()		{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.dedge; 	}
+bool 	TMC2300Stepper::diss2g()	{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2g; 	}
+bool   TMC2300Stepper::diss2vs()	{ TMC2300_n::CHOPCONF_t r{0}; r.sr = CHOPCONF(); return r.diss2vs; 	}

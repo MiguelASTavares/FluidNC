@@ -36,3 +36,21 @@ bool 		TMC2208Stepper::t157() 		{ GET_REG(TMC2208_n, t157); 		}
 uint16_t 	TMC2208Stepper::cs_actual()	{ GET_REG(TMC2208_n, cs_actual);	}
 bool 		TMC2208Stepper::stealth() 	{ GET_REG(TMC2208_n, stealth);		}
 bool 		TMC2208Stepper::stst() 		{ GET_REG(TMC2208_n, stst); 		}
+
+
+uint32_t TMC2300Stepper::DRV_STATUS() {
+	return read(TMC2208_n::DRV_STATUS_t::address);
+}
+
+bool 		TMC2300Stepper::otpw()		{ GET_REG(TMC2300_n, otpw); 		}
+bool 		TMC2300Stepper::ot() 		{ GET_REG(TMC2300_n, ot); 	 		}
+bool 		TMC2300Stepper::s2ga() 		{ GET_REG(TMC2300_n, s2ga); 		}
+bool 		TMC2300Stepper::s2gb() 		{ GET_REG(TMC2300_n, s2gb); 		}
+bool 		TMC2300Stepper::s2vsa() 	{ GET_REG(TMC2300_n, s2vsa);		}
+bool 		TMC2300Stepper::s2vsb() 	{ GET_REG(TMC2300_n, s2vsb);		}
+bool 		TMC2300Stepper::ola() 		{ GET_REG(TMC2300_n, ola);  		}
+bool 		TMC2300Stepper::olb() 		{ GET_REG(TMC2300_n, olb);  		}
+bool 		TMC2300Stepper::t120() 		{ GET_REG(TMC2300_n, t120); 		}
+bool 		TMC2300Stepper::t150() 		{ GET_REG(TMC2300_n, t150); 		}
+uint16_t 	TMC2300Stepper::cs_actual()	{ GET_REG(TMC2300_n, cs_actual);	}
+bool 		TMC2300Stepper::stst() 		{ GET_REG(TMC2300_n, stst); 		}

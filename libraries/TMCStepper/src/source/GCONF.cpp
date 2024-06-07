@@ -91,3 +91,26 @@ bool TMC2208Stepper::index_step()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); re
 bool TMC2208Stepper::pdn_disable()		{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.pdn_disable;		}
 bool TMC2208Stepper::mstep_reg_select()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.mstep_reg_select;	}
 bool TMC2208Stepper::multistep_filt()	{ TMC2208_n::GCONF_t r{0}; r.sr = GCONF(); return r.multistep_filt;		}
+
+
+
+uint32_t TMC2300Stepper::GCONF() {
+	return read(GCONF_register.address);
+}
+
+void TMC2300Stepper::GCONF(uint32_t input) {
+	GCONF_register.sr = input;
+	write(GCONF_register.address, GCONF_register.sr);
+}
+
+void TMC2300Stepper::extcap(bool B)				{ SET_REG(extcap);}
+void TMC2300Stepper::shaft(bool B)	{ SET_REG(shaft);}
+void TMC2300Stepper::diag_index(bool B)	{ SET_REG(diag_index);}
+void TMC2300Stepper::diag_step(bool B)	{ SET_REG(diag_step);}
+void TMC2300Stepper::multistep_filt(bool B)	{ SET_REG(multistep_filt);}
+
+bool TMC2300Stepper::extcap()				{ TMC2300_n::GCONF_t r{0}; r.sr = GCONF(); return r.extcap;	}
+bool TMC2300Stepper::shaft()	{ TMC2300_n::GCONF_t r{0}; r.sr = GCONF(); return r.shaft;	}
+bool TMC2300Stepper::diag_index()	{ TMC2300_n::GCONF_t r{0}; r.sr = GCONF(); return r.diag_index;	}
+bool TMC2300Stepper::diag_step()	{ TMC2300_n::GCONF_t r{0}; r.sr = GCONF(); return r.diag_step;	}
+bool TMC2300Stepper::multistep_filt()	{ TMC2300_n::GCONF_t r{0}; r.sr = GCONF(); return r.multistep_filt;	}
