@@ -115,6 +115,12 @@ namespace TMC2300_n {
             };
         };
     };
+
+    struct TCOOLTHRS_t {
+        constexpr static uint8_t address = 0x14;
+        uint32_t                 sr : 10;
+    };
+
 }
 
 #pragma pack(pop)

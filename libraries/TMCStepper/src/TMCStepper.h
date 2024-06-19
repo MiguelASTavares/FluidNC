@@ -1125,6 +1125,7 @@ public:
 #endif
     void push();
     void defaults();
+    void begin();
 
     uint32_t GCONF();
     void     GCONF(uint32_t value);
@@ -1148,13 +1149,13 @@ public:
     void     dedge(bool B);
     void     diss2g(bool B);
     void     diss2vs(bool B);
-    uint8_t tbl();
-    uint8_t mres();
-    bool    intpol();
-    bool    dedge();
-    bool    diss2g();
-    bool    diss2vs();
-    bool    enable_drv();
+    uint8_t  tbl();
+    uint8_t  mres();
+    bool     intpol();
+    bool     dedge();
+    bool     diss2g();
+    bool     diss2vs();
+    bool     enable_drv();
 
     uint32_t DRV_STATUS();
     bool     otpw();
@@ -1210,13 +1211,13 @@ public:
     uint8_t  sedn();
     bool     seimin();
 
-    
 protected:
     INIT2300_REGISTER(GCONF) { { .sr = 0 } };
+    INIT2300_REGISTER(CHOPCONF) { { .sr = 0 } };
     INIT_REGISTER(TCOOLTHRS) { .sr = 0 };
     TMC2300_n::SGTHRS_t   SGTHRS_register { .sr = 0 };
     TMC2300_n::COOLCONF_t COOLCONF_register { { .sr = 0 } };
-    TMC2300_n::CHOPCONF_t CHOPCONF_register { { .sr = 0 } };
+    //TMC2300_n::CHOPCONF_t CHOPCONF_register { { .sr = 0 } };
 };
 
 // ------------------------ Added for TMC2300 support ----------------------------------------

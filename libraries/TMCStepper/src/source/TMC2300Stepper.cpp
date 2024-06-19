@@ -1,17 +1,24 @@
 #include "TMCStepper.h"
 
+void TMC2300Stepper::begin() {
+#if SW_CAPABLE_PLATFORM
+    beginSerial(115200);
+#endif
+
+    defaults();
+    push();
+}
+
 void TMC2300Stepper::defaults() {
-    GCONF(1 << 6);
-    GSTAT(0);
-    SLAVECONF(0);
-    IHOLD_IRUN((8) | (31 << 8) | (1ul << 16));
-    TPOWERDOWN(20);
-    VACTUAL(0);
-    TCOOLTHRS(0);
-    SGTHRS(0);
-    COOLCONF(0);
-    CHOPCONF(0x13008001u);
-    PWMCONF(0xC40D1024u);
+    IHOLD_IRUN_register.iholddelay = 1;  // OTP
+    IHOLD_IRUN_register.ihold      = 8;
+    IHOLD_IRUN_register.irun       = 31;
+
+    TPOWERDOWN_register.sr = 20;
+
+    // CHOPCONF_register.sr = 0x13008001u;
+    CHOPCONF_register.sr = 0x13008001;
+    PWMCONF_register.sr  = 0xC10D0024;
 }
 
 uint32_t TMC2300Stepper::IOIN() {

@@ -600,7 +600,7 @@ static void protocol_do_initiate_cycle() {
     }
 }
 static void protocol_initiate_homing_cycle() {
-    // log_debug("protocol_initiate_homing_cycle " << state_name());
+    log_debug("protocol_initiate_homing_cycle " << state_name());
     sys.step_control                  = {};    // Restore step control to normal operation
     sys.suspend.value                 = 0;     // Break suspend state.
     sys.step_control.executeSysMotion = true;  // Set to execute homing motion and clear existing flags.
