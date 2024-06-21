@@ -1214,7 +1214,7 @@ public:
 protected:
     INIT2300_REGISTER(GCONF) { { .sr = 0 } };
     INIT2300_REGISTER(CHOPCONF) { { .sr = 0 } };
-    INIT_REGISTER(TCOOLTHRS) { .sr = 0 };
+    INIT2300_REGISTER(TCOOLTHRS) { .sr = 0 };
     TMC2300_n::SGTHRS_t   SGTHRS_register { .sr = 0 };
     TMC2300_n::COOLCONF_t COOLCONF_register { { .sr = 0 } };
     //TMC2300_n::CHOPCONF_t CHOPCONF_register { { .sr = 0 } };

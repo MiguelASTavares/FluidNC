@@ -9,12 +9,26 @@ void TMC2300Stepper::begin() {
     push();
 }
 
-void TMC2300Stepper::defaults() {
-    IHOLD_IRUN_register.iholddelay = 1;  // OTP
-    IHOLD_IRUN_register.ihold      = 8;
-    IHOLD_IRUN_register.irun       = 31;
+void TMC2300Stepper::push() {
+    IHOLD_IRUN(IHOLD_IRUN_register.sr);
+    TPOWERDOWN(TPOWERDOWN_register.sr);
+    TPWMTHRS(TPWMTHRS_register.sr);
+    GCONF(GCONF_register.sr);
+    SLAVECONF(SLAVECONF_register.sr);
+    VACTUAL(VACTUAL_register.sr);
+    CHOPCONF(CHOPCONF_register.sr);
+    PWMCONF(PWMCONF_register.sr);
+    TCOOLTHRS(TCOOLTHRS_register.sr);
+    SGTHRS(SGTHRS_register.sr);
+    COOLCONF(COOLCONF_register.sr);
+}
 
-    TPOWERDOWN_register.sr = 20;
+void TMC2300Stepper::defaults() {
+    //IHOLD_IRUN_register.iholddelay = 1;  // OTP
+    //IHOLD_IRUN_register.ihold      = 8;
+    //IHOLD_IRUN_register.irun       = 31;
+    //
+    //TPOWERDOWN_register.sr = 20;
 
     // CHOPCONF_register.sr = 0x13008001u;
     CHOPCONF_register.sr = 0x13008001;
@@ -83,20 +97,6 @@ uint8_t TMC2300Stepper::version() {
     TMC2300_n::IOIN_t r { 0 };
     r.sr = IOIN();
     return r.version;
-}
-
-void TMC2300Stepper::push() {
-    IHOLD_IRUN(IHOLD_IRUN_register.sr);
-    TPOWERDOWN(TPOWERDOWN_register.sr);
-    TPWMTHRS(TPWMTHRS_register.sr);
-    GCONF(GCONF_register.sr);
-    SLAVECONF(SLAVECONF_register.sr);
-    VACTUAL(VACTUAL_register.sr);
-    CHOPCONF(CHOPCONF_register.sr);
-    PWMCONF(PWMCONF_register.sr);
-    TCOOLTHRS(TCOOLTHRS_register.sr);
-    SGTHRS(SGTHRS_register.sr);
-    COOLCONF(COOLCONF_register.sr);
 }
 
 void TMC2300Stepper::SGTHRS(uint8_t input) {

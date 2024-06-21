@@ -104,7 +104,9 @@ namespace MotorDrivers {
                 log_info("Homing feed rate: " << homingFeedRate);
 
                 tmc2300->pwm_autoscale(true);
-                tmc2300->TCOOLTHRS(calc_tstep(homingFeedRate, 150.0));
+                //tmc2300->TCOOLTHRS(calc_tstep(homingFeedRate, 150.0));
+                log_info("Tstep calculation: " << calc_tstep(homingFeedRate, 150.0));
+                tmc2300->TCOOLTHRS(1023);
                 tmc2300->SGTHRS(_stallguard);
                 log_info("StallGuard configuration applied.");
                 break;
@@ -136,7 +138,7 @@ namespace MotorDrivers {
 
         uint32_t tstep = tmc2300->TSTEP();
         log_info("TSTEP value: " << tstep);
-
+        log_info("TCOOLTHRS: " << to_hex(tmc2300->TCOOLTHRS()));
         if (tstep == 0xFFFFF || tstep < 1) {  // if axis is not moving return
             log_info("Axis not moving, tstep indicates idle.");
             _cs_pin.synchronousWrite(false);
