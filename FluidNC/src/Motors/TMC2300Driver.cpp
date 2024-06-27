@@ -82,7 +82,7 @@ namespace MotorDrivers {
         log_info("Microsteps set to: " << usteps);
 
         tmc2300->pdn_disable(true);
-        log_info("Powerdown pin disabled.");
+        //log_info("Powerdown pin disabled.");
 
         switch (_mode) {
             case TrinamicMode::StealthChop:
@@ -137,8 +137,10 @@ namespace MotorDrivers {
         //log_info("CS pin set to true.");
 
         uint32_t tstep = tmc2300->TSTEP();
-        log_info("TSTEP value: " << tstep);
-        log_info("TCOOLTHRS: " << to_hex(tmc2300->TCOOLTHRS()));
+        log_info(axisName() << " TSTEP value: " << tstep);
+        log_info(axisName() << " TCOOLTHRS: " << tmc2300->TCOOLTHRS());
+        log_info(axisName() << " SG_Val: " << tmc2300->SG_RESULT());
+
         if (tstep == 0xFFFFF || tstep < 1) {  // if axis is not moving return
             log_info("Axis not moving, tstep indicates idle.");
             _cs_pin.synchronousWrite(false);
@@ -148,9 +150,9 @@ namespace MotorDrivers {
         float feedrate = Stepper::get_realtime_rate();  //* settings.microsteps[axis_index] / 60.0 ; // convert mm/min to Hz
         log_info("Realtime feedrate: " << feedrate << " mm/min");
 
-        if (tmc2300) {
-            log_info(axisName() << " SG_Val: " << tmc2300->SG_RESULT() << " Rate: " << feedrate << " mm/min SG_Setting: " << _stallguard);
-        }
+        //if (tmc2300) {
+        log_info(axisName() << " SG_Val: " << tmc2300->SG_RESULT() << " Rate: " << feedrate << " mm/min SG_Setting: " << _stallguard);
+        //}
 
         _cs_pin.synchronousWrite(false);
         //log_info("CS pin set to false.");

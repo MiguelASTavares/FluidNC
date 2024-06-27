@@ -30,9 +30,18 @@ void TMC2300Stepper::defaults() {
     //
     //TPOWERDOWN_register.sr = 20;
 
-    // CHOPCONF_register.sr = 0x13008001u;
-    CHOPCONF_register.sr = 0x13008001;
-    PWMCONF_register.sr  = 0xC10D0024;
+    //CHOPCONF_register.sr = 0x13008001u;
+    //CHOPCONF_register.sr = 0x13008001;
+    //CHOPCONF_register.enable_drv = 1;
+    CHOPCONF_register.enable_drv = true;    // Enable driver
+    CHOPCONF_register.tbl        = 0b01;    // Set table selection
+    CHOPCONF_register.mres       = 0b0110;  // Set microstep resolution
+    CHOPCONF_register.intpol     = 1;       // Enable interpolation to 256 microsteps
+    CHOPCONF_register.dedge      = 0;       // Enable double edge step pulses
+    CHOPCONF_register.diss2g     = 0;       // Disable short to ground protection
+    CHOPCONF_register.diss2vs    = 0;       // Disable short to supply protection
+
+    PWMCONF_register.sr = 0xC10D0024;
 }
 
 uint32_t TMC2300Stepper::IOIN() {
