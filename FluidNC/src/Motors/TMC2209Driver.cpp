@@ -147,7 +147,7 @@ namespace MotorDrivers {
         //log_info("Realtime feedrate: " << feedrate << " mm/min");
 
         if (tmc2209) {
-            //log_info(axisName() << " SG_Val: " << tmc2209->SG_RESULT() << " Rate: " << feedrate << " mm/min SG_Setting: " << _stallguard);
+            log_info(axisName() << " SG_Val: " << tmc2209->SG_RESULT() << " Rate: " << feedrate << " mm/min SG_Setting: " << _stallguard);
         }
 
         _cs_pin.synchronousWrite(false);
